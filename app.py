@@ -113,7 +113,7 @@ def put_transacoes(idtransacao):
 
 @app.get('/api/transacoes/<idtransacao>')
 def pegar_transacao(idtransacao):
-    print(idtransacao)
+    print(idtransacao)a
     conn = conectando()
     cur = conn.cursor(cursor_factory=extras.RealDictCursor)
 
