@@ -113,7 +113,7 @@ def put_transacoes(idtransacao):
 
 @app.get('/api/transacoes/<idtransacao>')
 def pegar_transacao(idtransacao):
-    print(idtransacao)a
+    print(idtransacao)
     conn = conectando()
     cur = conn.cursor(cursor_factory=extras.RealDictCursor)
 
@@ -127,33 +127,6 @@ def pegar_transacao(idtransacao):
     if transacao is None:
         return jsonify({'message': 'Transacão não econtrada'}), 404
     return jsonify(transacao)
-
-
-# @app.get('/proventos')
-# def pegar_proventos():
-#     conn = conectando()
-#     cur = conn.cursor(cursor_factory=extras.RealDictCursor)
-
-#     cur.execute("SELECT SUM(valor) AS total_entrada FROM transacoes WHERE tipo = 'Entrada';")
-#     proventos = cur.fetchone()
-
-#     cur.close()
-#     conn.close()
-
-#     return jsonify(proventos)
-
-# @app.get('/gastos')
-# def pegar_gastos():
-#     conn = conectando()
-#     cur = conn.cursor(cursor_factory=extras.RealDictCursor)
-
-#     cur.execute("SELECT SUM(valor) AS total_saida FROM transacoes WHERE tipo = 'Saida';")
-#     gastos = cur.fetchone()
-
-#     cur.close()
-#     conn.close()
-
-#     return jsonify(gastos)
 
 
 @app.get('/valores')
