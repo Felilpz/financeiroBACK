@@ -2,19 +2,19 @@ from flask import Flask, request, jsonify, send_file
 from psycopg2 import connect, extras
 from flask_cors import CORS
 
-app = Flask(__name__)
+app = Flask(_name_)
 
 CORS(app, resources={r"*": {"origins": "http://127.0.0.1:5001"}})
 CORS(app)
 
-host = 'localhost'
-port = 5432
-dbname = 'projetofinanceiro'
-username = 'postgres'
-password = 123
-
 
 def conectando():
+    host = 'localhost'
+    port = 5432
+    dbname = 'projetofinanceiro'
+    username = 'postgres'
+    password = 123
+
     conn = connect(host=host, port=port, dbname=dbname,
                    user=username, password=password)
     return conn
@@ -143,10 +143,5 @@ def pegar_saldo():
     return jsonify(saldo)
 
 
-@app.get('/home')
-def home():
-    return send_file('static/index.html')
-
-
-if __name__ == '__main__':
+if _name_ == '_main_':
     app.run(debug=True)
