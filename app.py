@@ -7,14 +7,15 @@ app = Flask(__name__)
 CORS(app, resources={r"*": {"origins": "http://127.0.0.1:5001"}})
 CORS(app)
 
-host = 'localhost'
-port = 5432
-dbname = 'projetofinanceiro'
-username = 'postgres'
-password = 123
 
 
 def conectando():
+    host = 'localhost'
+    port = 5432
+    dbname = 'projetofinanceiro'
+    username = 'postgres'
+    password = 123
+    
     conn = connect(host=host, port=port, dbname=dbname,
                    user=username, password=password)
     return conn
@@ -30,9 +31,15 @@ def pegar_transacoes():
 
     cur.close()
     conn.close()
+    
+    
 
-    return jsonify(transacoes)
-
+    response = jsonify(transacoes)
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    
+    return response
 
 @app.post('/api/transacoes')
 def criar_transacoes():
@@ -126,7 +133,14 @@ def pegar_transacao(idtransacao):
 
     if transacao is None:
         return jsonify({'message': 'Transacão não econtrada'}), 404
-    return jsonify(transacao)
+    
+    response = jsonify(transacao)
+    
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    
+    return response
 
 
 @app.get('/valores')
